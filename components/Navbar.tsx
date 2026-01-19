@@ -1,0 +1,136 @@
+
+import React, { useState } from 'react';
+import { Menu, ChevronDown, Clock, Tag, X } from 'lucide-react';
+
+interface NavbarProps {
+  onNavigate: (view: 'home' | 'news' | 'suggestions' | 'agencies') => void;
+  currentView: string;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentView }) => {
+  const [isVoyagerOpen, setIsVoyagerOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#6F1AAE] text-white shadow-lg border-b border-white/5">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 md:h-24">
+          {/* Logo */}
+          <div 
+            className="flex items-center gap-3 cursor-pointer group"
+            onClick={() => onNavigate('home')}
+          >
+            <div className="bg-white p-1.5 rounded-xl shadow-inner transition-transform group-hover:scale-105">
+               <div className="flex flex-col items-center leading-none">
+                 <svg width="24" height="24" viewBox="0 0 100 100" className="mb-0.5">
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="black" strokeWidth="8"/>
+                    <rect x="35" y="35" width="30" height="30" fill="black"/>
+                    <path d="M50 10 L50 90 M10 50 L90 50" stroke="black" strokeWidth="4"/>
+                 </svg>
+                 <span className="text-[#6F1AAE] font-black text-xs tracking-tighter">NAGODE</span>
+                 <div className="w-full h-[1px] bg-[#6F1AAE]/20 my-0.5"></div>
+                 <span className="text-[5px] font-bold text-black tracking-[0.1em]">TRANSFERT</span>
+               </div>
+            </div>
+            <div className="hidden sm:flex flex-col -space-y-1">
+              <span className="text-xl font-black tracking-tighter uppercase">Nagode</span>
+              <span className="text-[10px] font-bold tracking-[0.3em] opacity-80 uppercase">Transfert</span>
+            </div>
+          </div>
+
+          <div className="hidden lg:flex items-center space-x-10 text-sm font-bold">
+            <button 
+              onClick={() => onNavigate('home')} 
+              className={`transition-colors tracking-wide uppercase text-xs ${currentView === 'home' ? 'text-white' : 'text-white/60 hover:text-white'}`}
+            >
+              Accueil
+            </button>
+            
+            <div 
+              className="relative group"
+              onMouseEnter={() => setIsVoyagerOpen(true)}
+              onMouseLeave={() => setIsVoyagerOpen(false)}
+            >
+              <button className="flex items-center gap-1 cursor-pointer hover:text-white/80 py-4 tracking-wide uppercase text-xs">
+                <span>Voyager</span>
+                <ChevronDown size={12} className={`transition-transform duration-200 ${isVoyagerOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              <div className={`absolute top-full left-1/2 -translate-x-1/2 w-56 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden transform transition-all duration-300 origin-top ${isVoyagerOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
+                <div className="p-2">
+                  <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-brand-light rounded-lg transition-colors">
+                    <Tag size={16} className="text-[#6F1AAE]" />
+                    <span className="font-bold text-sm">Tarifs</span>
+                  </a>
+                  <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-brand-light rounded-lg transition-colors">
+                    <Clock size={16} className="text-[#6F1AAE]" />
+                    <span className="font-bold text-sm">Horaires de départ</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <button 
+              onClick={() => onNavigate('news')} 
+              className={`transition-colors tracking-wide uppercase text-xs ${currentView === 'news' ? 'text-white' : 'text-white/60 hover:text-white'}`}
+            >
+              Actualités
+            </button>
+            <button 
+              onClick={() => onNavigate('agencies')} 
+              className={`transition-colors tracking-wide uppercase text-xs ${currentView === 'agencies' ? 'text-white' : 'text-white/60 hover:text-white'}`}
+            >
+              Nos Agences
+            </button>
+            <button 
+              onClick={() => onNavigate('suggestions')} 
+              className={`transition-colors tracking-wide uppercase text-xs ${currentView === 'suggestions' ? 'text-white' : 'text-white/60 hover:text-white'}`}
+            >
+              Suggestions
+            </button>
+            <a href="mailto:info@nagodetransfert.com" className="hover:text-white/80 transition-colors tracking-wide uppercase text-xs">Contact</a>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <button 
+              className="p-2 hover:bg-white/10 rounded-lg transition-colors lg:hidden"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden bg-[#6F1AAE] border-t border-white/10 p-6 space-y-6 h-screen animate-in fade-in slide-in-from-top-4 duration-300">
+          <button onClick={() => {onNavigate('home'); setIsMobileMenuOpen(false);}} className="block text-xl font-bold hover:text-white/70 w-full text-left">Accueil</button>
+          
+          <div className="space-y-4">
+             <p className="text-[10px] font-black text-white/40 uppercase tracking-widest">Voyager</p>
+             <div className="space-y-4 pl-4 border-l-2 border-white/10">
+               <a href="#" className="flex items-center gap-3 text-lg font-bold hover:text-white/70">
+                 <Tag size={18} />
+                 <span>Tarifs</span>
+               </a>
+               <a href="#" className="flex items-center gap-3 text-lg font-bold hover:text-white/70">
+                 <Clock size={18} />
+                 <span>Horaires</span>
+               </a>
+             </div>
+          </div>
+
+          <div className="space-y-6 pt-4 border-t border-white/5">
+            <button onClick={() => {onNavigate('news'); setIsMobileMenuOpen(false);}} className="block text-xl font-bold hover:text-white/70 w-full text-left">Actualités</button>
+            <button onClick={() => {onNavigate('agencies'); setIsMobileMenuOpen(false);}} className="block text-xl font-bold hover:text-white/70 w-full text-left">Nos Agences</button>
+            <button onClick={() => {onNavigate('suggestions'); setIsMobileMenuOpen(false);}} className="block text-xl font-bold hover:text-white/70 w-full text-left">Suggestions</button>
+            <a href="mailto:info@nagodetransfert.com" className="block text-xl font-bold hover:text-white/70">Contact</a>
+          </div>
+        </div>
+      )}
+    </nav>
+  );
+};
+
+export default Navbar;
