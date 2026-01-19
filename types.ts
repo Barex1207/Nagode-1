@@ -1,8 +1,8 @@
 
 export enum ServiceTab {
-  TRANSPORT = 'Transport',
-  COLIS = 'Colis',
-  ARGENT = 'Argent'
+  TRANSPORT = 'TICKET',
+  COLIS = 'ENVOI COLIS',
+  ARGENT = 'TRANSFERT D\'ARGENT'
 }
 
 export interface Destination {

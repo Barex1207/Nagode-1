@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Menu, ChevronDown, Clock, Tag, X } from 'lucide-react';
 
 interface NavbarProps {
-  onNavigate: (view: 'home' | 'news' | 'suggestions' | 'agencies') => void;
+  onNavigate: (view: 'home' | 'news' | 'suggestions' | 'agencies' | 'contact' | 'pricing' | 'schedules') => void;
   currentView: string;
 }
 
@@ -58,14 +58,20 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentView }) => {
               
               <div className={`absolute top-full left-1/2 -translate-x-1/2 w-56 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden transform transition-all duration-300 origin-top ${isVoyagerOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
                 <div className="p-2">
-                  <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-brand-light rounded-lg transition-colors">
+                  <button 
+                    onClick={() => {onNavigate('pricing'); setIsVoyagerOpen(false);}}
+                    className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-brand-light rounded-lg transition-colors text-left"
+                  >
                     <Tag size={16} className="text-[#6F1AAE]" />
                     <span className="font-bold text-sm">Tarifs</span>
-                  </a>
-                  <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-brand-light rounded-lg transition-colors">
+                  </button>
+                  <button 
+                    onClick={() => {onNavigate('schedules'); setIsVoyagerOpen(false);}}
+                    className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-brand-light rounded-lg transition-colors text-left"
+                  >
                     <Clock size={16} className="text-[#6F1AAE]" />
                     <span className="font-bold text-sm">Horaires de départ</span>
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -88,7 +94,12 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentView }) => {
             >
               Suggestions
             </button>
-            <a href="mailto:info@nagodetransfert.com" className="hover:text-white/80 transition-colors tracking-wide uppercase text-xs">Contact</a>
+            <button 
+              onClick={() => onNavigate('contact')} 
+              className={`transition-colors tracking-wide uppercase text-xs ${currentView === 'contact' ? 'text-white' : 'text-white/60 hover:text-white'}`}
+            >
+              Contact
+            </button>
           </div>
 
           <div className="flex items-center gap-4">
@@ -104,20 +115,26 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentView }) => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-[#6F1AAE] border-t border-white/10 p-6 space-y-6 h-screen animate-in fade-in slide-in-from-top-4 duration-300">
+        <div className="lg:hidden bg-[#6F1AAE] border-t border-white/10 p-6 space-y-6 h-screen animate-in fade-in slide-in-from-top-4 duration-300 overflow-y-auto">
           <button onClick={() => {onNavigate('home'); setIsMobileMenuOpen(false);}} className="block text-xl font-bold hover:text-white/70 w-full text-left">Accueil</button>
           
           <div className="space-y-4">
              <p className="text-[10px] font-black text-white/40 uppercase tracking-widest">Voyager</p>
              <div className="space-y-4 pl-4 border-l-2 border-white/10">
-               <a href="#" className="flex items-center gap-3 text-lg font-bold hover:text-white/70">
+               <button 
+                onClick={() => {onNavigate('pricing'); setIsMobileMenuOpen(false);}}
+                className="flex items-center gap-3 text-lg font-bold hover:text-white/70 w-full text-left"
+               >
                  <Tag size={18} />
                  <span>Tarifs</span>
-               </a>
-               <a href="#" className="flex items-center gap-3 text-lg font-bold hover:text-white/70">
+               </button>
+               <button 
+                onClick={() => {onNavigate('schedules'); setIsMobileMenuOpen(false);}}
+                className="flex items-center gap-3 text-lg font-bold hover:text-white/70 w-full text-left"
+               >
                  <Clock size={18} />
                  <span>Horaires</span>
-               </a>
+               </button>
              </div>
           </div>
 
@@ -125,7 +142,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentView }) => {
             <button onClick={() => {onNavigate('news'); setIsMobileMenuOpen(false);}} className="block text-xl font-bold hover:text-white/70 w-full text-left">Actualités</button>
             <button onClick={() => {onNavigate('agencies'); setIsMobileMenuOpen(false);}} className="block text-xl font-bold hover:text-white/70 w-full text-left">Nos Agences</button>
             <button onClick={() => {onNavigate('suggestions'); setIsMobileMenuOpen(false);}} className="block text-xl font-bold hover:text-white/70 w-full text-left">Suggestions</button>
-            <a href="mailto:info@nagodetransfert.com" className="block text-xl font-bold hover:text-white/70">Contact</a>
+            <button onClick={() => {onNavigate('contact'); setIsMobileMenuOpen(false);}} className="block text-xl font-bold hover:text-white/70 w-full text-left">Contact</button>
           </div>
         </div>
       )}

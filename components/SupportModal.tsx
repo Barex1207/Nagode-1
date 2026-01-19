@@ -19,15 +19,15 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const allNumbers = [
-    "93 76 25 60",
-    "93 25 66 23",
-    "93 25 66 24",
-    "93 25 66 80",
-    "93 17 27 92",
-    "90 77 20 13"
+    { num: "93 76 25 60", code: "+228" },
+    { num: "93 25 66 23", code: "+228" },
+    { num: "93 25 66 24", code: "+228" },
+    { num: "93 25 66 80", code: "+228" },
+    { num: "93 17 27 92", code: "+228" },
+    { num: "90 77 20 13", code: "+228" }
   ];
 
-  const moneyNumber = "90 77 20 13"; // Numéro spécifique pour le transfert d'argent
+  const moneyNumber = { num: "90 77 20 13", code: "+228" };
 
   const handleSelection = (selectedType: SupportType) => {
     setType(selectedType);
@@ -45,7 +45,7 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
     setDestination('');
   };
 
-  const formatForCall = (num: string) => `tel:+228${num.replace(/\s/g, '')}`;
+  const formatForCall = (code: string, num: string) => `tel:${code}${num.replace(/\s/g, '')}`;
 
   const renderSelection = () => (
     <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-300">
@@ -77,7 +77,7 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
             <Box size={24} />
           </div>
           <div>
-            <h4 className="font-black text-gray-900 uppercase text-xs tracking-widest">Envoyer ou chercher un colis</h4>
+            <h4 className="font-black text-gray-900 uppercase text-xs tracking-widest">Envoi ou suivi colis</h4>
             <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tighter">Logistique & Colis</p>
           </div>
         </div>
@@ -176,7 +176,7 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
              </div>
              <div>
                 <p className="text-[10px] font-black uppercase tracking-widest text-[#6F1AAE] opacity-70">
-                  {type === 'ticket' ? 'Ticket Reservation' : type === 'parcel' ? 'Colis & Logistique' : 'Transfert d\'Argent'}
+                  {type === 'ticket' ? 'Réservation Ticket' : type === 'parcel' ? 'Colis & Logistique' : 'Transfert d\'Argent'}
                 </p>
                 {origin && destination && (
                   <p className="text-xs font-bold text-gray-700">{origin} <span className="text-gray-300 mx-1">→</span> {destination}</p>
@@ -192,10 +192,10 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
         </p>
 
         <div className="grid gap-3 max-h-[300px] overflow-y-auto pr-2 no-scrollbar">
-          {numbersToShow.map((num, idx) => (
+          {numbersToShow.map((item, idx) => (
             <a 
               key={idx}
-              href={formatForCall(num)}
+              href={formatForCall(item.code, item.num)}
               className="group flex items-center justify-between p-4 bg-gray-50 hover:bg-[#6F1AAE] rounded-2xl transition-all duration-300 border border-gray-100"
             >
               <div className="flex items-center gap-4">
@@ -203,7 +203,7 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
                   <Phone size={18} />
                 </div>
                 <span className="font-black text-[#6F1AAE] group-hover:text-white transition-colors text-lg tracking-wider">
-                  {num}
+                  {item.code} {item.num}
                 </span>
               </div>
               <div className="bg-[#6F1AAE]/10 text-[#6F1AAE] group-hover:bg-white group-hover:text-[#6F1AAE] px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest">
@@ -225,15 +225,12 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      {/* Overlay */}
       <div 
         className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300"
         onClick={onClose}
       ></div>
 
-      {/* Modal Content */}
       <div className="relative bg-white w-full max-w-md rounded-[2.5rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
-        {/* Header */}
         <div className="bg-[#6F1AAE] p-8 text-white relative">
           <button 
             onClick={onClose}
@@ -252,7 +249,6 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        {/* Dynamic Content */}
         <div className="p-8">
           {step === 'selection' && renderSelection()}
           {step === 'details' && renderDetails()}

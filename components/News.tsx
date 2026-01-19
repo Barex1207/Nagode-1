@@ -5,27 +5,27 @@ import { Calendar, ArrowRight } from 'lucide-react';
 const newsItems = [
   {
     id: 1,
-    title: "Nouvelles lignes vers le Ghana",
-    excerpt: "Nagode Transfert étend son réseau avec 3 nouveaux départs quotidiens vers Accra et Kumasi.",
-    date: "12 Mai 2024",
+    title: "Nouveaux bus VIP dernière génération",
+    excerpt: "Nagode Transfert continue de moderniser sa flotte pour votre confort. Découvrez nos nouveaux bus équipés de climatisation, ports USB et sièges grand confort.",
+    date: "Mars 2025",
     image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=800",
-    category: "Réseau"
+    category: "Confort"
   },
   {
     id: 2,
-    title: "Lancement de l'application mobile",
-    excerpt: "Gérez vos réservations et vos envois directement depuis votre smartphone avec notre nouvelle app.",
-    date: "05 Mai 2024",
-    image: "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&q=80&w=800",
-    category: "Technologie"
+    title: "Ligne Lomé - Sokodé - Kara renforcée",
+    excerpt: "Plus de départs quotidiens pour mieux vous servir sur l'axe Nord-Sud. Consultez nos nouveaux horaires en agence ou sur l'application.",
+    date: "Février 2025",
+    image: "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&q=80&w=800",
+    category: "Réseau"
   },
   {
     id: 3,
-    title: "Engagement Sécurité 2024",
-    excerpt: "Nous renouvelons notre flotte avec 10 nouveaux bus ultra-modernes équipés des dernières technologies de sécurité.",
-    date: "28 Avril 2024",
-    image: "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&q=80&w=800",
-    category: "Sécurité"
+    title: "Suivi de colis en temps réel",
+    excerpt: "Notre service de logistique s'améliore ! Vous pouvez désormais appeler nos lignes dédiées pour connaître la position exacte de vos marchandises.",
+    date: "Janvier 2025",
+    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800",
+    category: "Logistique"
   }
 ];
 
@@ -69,10 +69,15 @@ const News: React.FC = () => {
                 <p className="text-sm text-gray-500 leading-relaxed mb-6 flex-1">
                   {item.excerpt}
                 </p>
-                <button className="flex items-center gap-2 text-[#6F1AAE] font-black text-xs uppercase tracking-widest group/btn">
-                  Lire la suite 
+                <a 
+                  href="https://www.facebook.com/profile.php?id=100068396082049&locale=fr_FR"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-[#6F1AAE] font-black text-xs uppercase tracking-widest group/btn"
+                >
+                  Voir sur Facebook 
                   <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
-                </button>
+                </a>
               </div>
             </div>
           ))}

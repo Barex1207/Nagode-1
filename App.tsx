@@ -9,10 +9,13 @@ import Footer from './components/Footer';
 import News from './components/News';
 import Suggestions from './components/Suggestions';
 import Agencies from './components/Agencies';
+import Contact from './components/Contact';
+import Pricing from './components/Pricing';
+import Schedules from './components/Schedules';
 import SupportModal from './components/SupportModal';
 import { ServiceTab } from './types';
 
-type ViewState = 'home' | 'news' | 'suggestions' | 'agencies';
+type ViewState = 'home' | 'news' | 'suggestions' | 'agencies' | 'contact' | 'pricing' | 'schedules';
 
 const App: React.FC = () => {
   const [activeBookingTab, setActiveBookingTab] = useState<ServiceTab>(ServiceTab.TRANSPORT);
@@ -41,13 +44,6 @@ const App: React.FC = () => {
   };
 
   const navigateTo = (view: ViewState) => {
-    if (view === 'suggestions' && currentView === 'home') {
-      const element = document.getElementById('suggestions-section');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        return;
-      }
-    }
     setCurrentView(view);
   };
 
@@ -56,14 +52,15 @@ const App: React.FC = () => {
       case 'news':
         return <News />;
       case 'suggestions':
-        return (
-          <>
-            <News />
-            <Suggestions />
-          </>
-        );
+        return <Suggestions />;
       case 'agencies':
         return <Agencies />;
+      case 'contact':
+        return <Contact />;
+      case 'pricing':
+        return <Pricing />;
+      case 'schedules':
+        return <Schedules />;
       default:
         return (
           <>
@@ -71,29 +68,25 @@ const App: React.FC = () => {
             <Features />
             <Destinations />
             
-            <div id="suggestions-section">
-              <Suggestions />
-            </div>
-
             <div className="pb-24 bg-white">
                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                  <div className="p-1 rounded-3xl border-[2.5px] border-blue-200/60 bg-white shadow-sm overflow-hidden">
                     <div className="grid md:grid-cols-3 gap-0">
                        {[
                          { 
-                           title: 'Transport de Passagers', 
+                           title: 'TICKET', 
                            icon: '🚌', 
                            desc: 'Voyagez confortablement',
                            tab: ServiceTab.TRANSPORT
                          },
                          { 
-                           title: 'Suivez vos Colis', 
+                           title: 'ENVOI COLIS', 
                            icon: '📦', 
                            desc: 'Sécurité et rapidité',
                            tab: ServiceTab.COLIS
                          },
                          { 
-                           title: 'Transfert d\'Argent', 
+                           title: 'TRANSFERT D\'ARGENT', 
                            icon: '💸', 
                            desc: 'Envoyez à vos proches',
                            tab: ServiceTab.ARGENT
@@ -110,7 +103,7 @@ const App: React.FC = () => {
                              {item.icon}
                            </div>
                            <div className="text-center">
-                             <h5 className="font-bold text-[#6F1AAE] text-lg group-hover:text-[#8A2BE2] transition-colors">
+                             <h5 className="font-black text-[#6F1AAE] text-lg group-hover:text-[#8A2BE2] transition-colors uppercase tracking-tight">
                                {item.title}
                              </h5>
                              <p className="text-sm text-gray-400 font-medium">
